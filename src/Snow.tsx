@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+// @ts-ignore
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import type { Engine } from "@tsparticles/engine";
