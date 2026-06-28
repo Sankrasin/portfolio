@@ -58,7 +58,7 @@ function App() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="font-body text-[var(--color-frost-light)] opacity-80 max-w-xl leading-relaxed mb-10"
           >
-            Turning data into insights and ideas into solutions. Building intelligent, calm, and seamless digital experiences.
+            I like turning “What if?” into “It works!”
           </motion.p>
           
           <motion.div
@@ -109,13 +109,13 @@ function App() {
                className="glass-panel p-8 border-l-4 border-l-[var(--color-frost-blue)] space-y-4 font-body text-sm text-gray-200 leading-loose rounded-3xl"
              >
                 <p>
-                  I'm <span className="text-white font-bold">Sankalp Raj Singh</span>, a Computer Science Engineering student at <span className="text-white font-bold">Graphic Era (Deemed to be University)</span>, pursuing B.Tech. My academic journey began at City Montessori School, Lucknow.
+                  I’m <span className="text-white font-bold">Sankalp Raj Singh</span>, a Computer Science Engineering student at <span className="text-white font-bold">Graphic Era (Deemed to be University)</span>, currently in my 7th semester of B.Tech. I completed my schooling at City Montessori School, Lucknow.
                 </p>
                 <p>
-                  My interest in technology started during my school years when I became curious about how the software and websites I used every day were built. This curiosity led me to learn C and Java, introducing me to problem-solving through code.
+                  My interest in technology started during my school years when I became curious about how the software and websites I used every day actually worked and were built. That curiosity motivated me to start learning C and Java, where I was introduced to programming and problem-solving.
                 </p>
                 <p>
-                  Over time, my passion evolved from simple programs to exploring <span className="text-[var(--color-frost-medium)]">software development, algorithms, artificial intelligence, machine learning, and data analytics.</span>
+                  Over time, my interest grew beyond writing simple programs. I started exploring <span className="text-[var(--color-frost-medium)]">software development, algorithms, artificial intelligence, machine learning, and data analytics,</span> which continue to be the areas I’m most interested in learning and building projects in.
                 </p>
                 
                 <div className="pt-6">
