@@ -1,61 +1,95 @@
-import { useCallback } from "react";
-import Particles from "react-tsparticles";
+import { useEffect, useState } from "react";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import type { Engine } from "@tsparticles/engine";
 
 export default function Snow() {
-  const particlesInit = useCallback(async (engine: Engine) => {
-    // This loads the slim version of tsparticles to keep bundle size small
-    await loadSlim(engine);
+  const [init, setInit] = useState(false);
+
+  // This should be run only once per application lifetime
+  useEffect(() => {
+    initParticlesEngine(async (engine: Engine) => {
+      // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
+      // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+      // starting from v2 you can add only the features you need reducing the bundle size
+      await loadSlim(engine);
+    }).then(() => {
+      setInit(true);
+    });
   }, []);
+
+  if (!init) {
+    return null;
+  }
 
   return (
     <Particles
       id="tsparticles"
-      init={particlesInit}
       options={{
-        fullScreen: { 
-          enable: false, 
-          zIndex: -1 
+        background: {
+          color: {
+            value: "transparent",
+          },
+        },
+        fpsLimit: 120,
+        interactivity: {
+          events: {
+            onClick: {
+              enable: false,
+              mode: "push",
+            },
+            onHover: {
+              enable: true,
+              mode: "repulse",
+            },
+          },
+          modes: {
+            repulse: {
+              distance: 100,
+              duration: 0.4,
+            },
+          },
         },
         particles: {
-          number: { 
-            value: 200, 
-            density: { enable: true, value_area: 800 } 
+          color: {
+            value: "#ffffff",
           },
-          color: { 
-            value: "#ffffff" 
-          },
-          shape: { 
-            type: "circle" 
-          },
-          opacity: { 
-            value: 0.6, 
-            random: true, 
-            anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } 
-          },
-          size: { 
-            value: 3, 
-            random: true, 
-            anim: { enable: false } 
+          links: {
+            color: "#ffffff",
+            distance: 150,
+            enable: false,
+            opacity: 0.5,
+            width: 1,
           },
           move: {
-            enable: true,
-            speed: 1.2,
             direction: "bottom",
-            random: true,
+            enable: true,
+            outModes: {
+              default: "out",
+            },
+            random: false,
+            speed: 1,
             straight: false,
-            outModes: { default: "out" },
-          }
-        },
-        interactivity: { 
-          events: { 
-            onHover: { enable: false },
-            onClick: { enable: false } 
-          } 
+          },
+          number: {
+            density: {
+              enable: true,
+            },
+            value: 200,
+          },
+          opacity: {
+            value: { min: 0.1, max: 0.5 },
+          },
+          shape: {
+            type: "circle",
+          },
+          size: {
+            value: { min: 1, max: 3 },
+          },
         },
         detectRetina: true,
       }}
+      className="absolute inset-0 z-0 pointer-events-none"
     />
   );
 }
