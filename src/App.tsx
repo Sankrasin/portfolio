@@ -388,7 +388,7 @@ function App() {
               transition={{ delay: 0.2 }}
               className="font-body text-[var(--color-frost-light)] opacity-80 mb-12 max-w-md mx-auto"
             >
-              Open to freelance projects, internships, and full-time roles in Data Analytics and AI/ML. Let's build something meaningful.
+              Open to Opportunities
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
