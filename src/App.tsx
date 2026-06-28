@@ -1,8 +1,11 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Snow from './Snow';
 import AudioPlayer from './AudioPlayer';
+import { useState } from 'react';
 
 function App() {
+  const [entered, setEntered] = useState(false);
+
   return (
     <>
       <div className="fixed inset-0 z-[-1] pointer-events-none">
@@ -22,6 +25,42 @@ function App() {
       
       {/* Icy Dark Overlay to ensure text readability */}
       <div className="fixed inset-0 bg-gradient-to-b from-[#080f1a]/50 to-[#080f1a]/90 z-[-1]"></div>
+      
+      <AnimatePresence>
+        {!entered && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.8 } }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md bg-[#080f1a]/40"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="glass-panel p-8 md:p-10 rounded-2xl text-center max-w-sm w-full flex flex-col items-center gap-6 border-t border-[var(--color-frost-light)] shadow-[0_0_50px_rgba(224,242,254,0.1)] relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-frost-light)] opacity-10 blur-3xl pointer-events-none"></div>
+              
+              <h2 className="text-2xl md:text-3xl font-bold text-white drop-shadow-md">Glad you're here</h2>
+              
+              <button 
+                onClick={() => setEntered(true)}
+                className="px-6 py-3 bg-white/5 hover:bg-[var(--color-frost-light)] text-white hover:text-[#080f1a] transition-all duration-300 rounded-full font-body tracking-widest uppercase font-bold text-sm border border-[var(--color-frost-light)] hover:border-transparent shadow-[0_0_15px_rgba(224,242,254,0.1)] hover:shadow-[0_0_30px_rgba(224,242,254,0.4)]"
+              >
+                View portfolio
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {entered && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.2 }}
+        >
       
       <nav className="fixed top-0 w-full p-6 glass-panel z-50 flex justify-between items-center border-b border-white/10">
         <h1 className="text-2xl font-bold font-heading tracking-widest text-[var(--color-frost-light)]">
@@ -415,6 +454,8 @@ function App() {
       <footer className="text-center py-8 font-body text-xs text-[var(--color-frost-light)] opacity-50 tracking-widest uppercase border-t border-white/10 bg-[#080f1a]/80 backdrop-blur-md">
         &copy; 2025 SANKALP RAJ SINGH
       </footer>
+      </motion.div>
+      )}
     </>
   )
 }
