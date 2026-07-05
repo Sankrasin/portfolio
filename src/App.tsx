@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Snow from './Snow';
 import AudioPlayer from './AudioPlayer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const projectsData = [
   {
@@ -22,8 +22,8 @@ const projectsData = [
     btnHoverBorderClass: 'hover:border-[var(--color-frost-light)]',
     btnSolidHoverBgClass: 'hover:bg-[var(--color-frost-light)]',
     video: '/devpilotdemo.webm',
-    github: '#',
-    live: '#'
+    github: 'https://github.com/Sankrasin/devpilot',
+    live: 'https://devpilot-coral.vercel.app/'
   },
   {
     id: 'kinosoca',
@@ -43,8 +43,8 @@ const projectsData = [
     btnHoverBorderClass: 'hover:border-[var(--color-frost-blue)]',
     btnSolidHoverBgClass: 'hover:bg-[var(--color-frost-blue)]',
     video: '/kinosocademo.webm',
-    github: '#',
-    live: '#'
+    github: 'https://github.com/Sankrasin/kinosoca',
+    live: 'https://kinosoca.vercel.app/'
   },
   {
     id: 'hireamigo',
@@ -64,30 +64,47 @@ const projectsData = [
     btnHoverBorderClass: 'hover:border-[var(--color-frost-medium)]',
     btnSolidHoverBgClass: 'hover:bg-[var(--color-frost-medium)]',
     video: '/hireamigodemo.webm',
-    github: '#',
-    live: '#'
+    github: 'https://github.com/Sankrasin/hireamigo',
+    live: 'https://hireamigo.vercel.app/'
   }
 ];
 
 function App() {
   const [entered, setEntered] = useState(false);
-  const [expandedProject, setExpandedProject] = useState<string | null>(null);
-  const [showVideo, setShowVideo] = useState(false);
+  const [expandedProjects, setExpandedProjects] = useState<string[]>([]);
+  const [shownVideos, setShownVideos] = useState<string[]>([]);
 
   const toggleProject = (id: string) => {
-    if (expandedProject === id) {
-      setExpandedProject(null);
-      setShowVideo(false);
+    if (expandedProjects.includes(id)) {
+      setExpandedProjects(prev => prev.filter(p => p !== id));
+      setShownVideos(prev => prev.filter(p => p !== id));
     } else {
-      setExpandedProject(id);
-      setShowVideo(false);
+      setExpandedProjects(prev => [...prev, id]);
       setTimeout(() => {
         document.getElementById(`project-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 450);
     }
   };
 
+  useEffect(() => {
+    const handleDocumentClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('.project-card')) {
+        if (expandedProjects.length > 0) {
+          setExpandedProjects([]);
+          setShownVideos([]);
+          setTimeout(() => {
+            document.getElementById('projects-grid')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 500);
+        }
+      }
+    };
 
+    document.addEventListener('click', handleDocumentClick);
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, [expandedProjects]);
   return (
     <>
       <div className="fixed inset-0 z-[-1] pointer-events-none">
@@ -268,7 +285,7 @@ function App() {
 
                   <motion.div whileHover={{ y: -5, scale: 1.02 }} className="glass-panel p-6 flex justify-between items-center rounded-3xl transition-shadow hover:shadow-[0_0_30px_rgba(56,189,248,0.2)] cursor-default">
                     <span className="font-body text-xs text-[var(--color-frost-light)] opacity-70 uppercase tracking-widest">Current CGPA</span>
-                    <div className="font-bold text-3xl text-[var(--color-frost-light)]">8.0</div>
+                    <div className="font-bold text-3xl text-[var(--color-frost-light)]">7.9/10</div>
                   </motion.div>
 
 
@@ -301,7 +318,7 @@ function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -5, scale: 1.02 }}
-                className="glass-panel p-10 rounded-3xl grid grid-cols-2 md:grid-cols-4 gap-8 transition-shadow hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+                className="glass-panel p-10 rounded-3xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 transition-shadow hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
               >
                 <div>
                   <h4 className="text-[var(--color-frost-blue)] font-body tracking-widest uppercase text-sm mb-4 font-bold">Languages</h4>
@@ -309,34 +326,44 @@ function App() {
                     <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Python</li>
                     <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>C / C++</li>
                     <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Java</li>
-                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>SQL</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>TypeScript</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>JavaScript</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="text-[var(--color-frost-blue)] font-body tracking-widest uppercase text-sm mb-4 font-bold">AI / ML</h4>
                   <ul className="text-gray-300 font-body text-sm space-y-3">
-                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>TensorFlow</li>
-                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>PyTorch</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Generative AI (GenAI)</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Semantic Search</li>
                     <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>NLP</li>
-                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Computer Vision</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Recommendation Systems</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Rule-Based Scoring</li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="text-[var(--color-frost-blue)] font-body tracking-widest uppercase text-sm mb-4 font-bold">Data</h4>
+                  <h4 className="text-[var(--color-frost-blue)] font-body tracking-widest uppercase text-sm mb-4 font-bold">Data Analysis</h4>
                   <ul className="text-gray-300 font-body text-sm space-y-3">
                     <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Pandas / NumPy</li>
-                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>PowerBI</li>
                     <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>PostgreSQL</li>
                     <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Tableau</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-[var(--color-frost-blue)] font-body tracking-widest uppercase text-sm mb-4 font-bold">Web Dev</h4>
+                  <ul className="text-gray-300 font-body text-sm space-y-3">
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>React 19</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Next.js 15</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>FastAPI</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>SQLAlchemy</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Tailwind CSS</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Vite</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="text-[var(--color-frost-blue)] font-body tracking-widest uppercase text-sm mb-4 font-bold">Tools</h4>
                   <ul className="text-gray-300 font-body text-sm space-y-3">
                     <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Git / GitHub</li>
-                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>Docker</li>
-                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>AWS</li>
-                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>React</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>VS Code</li>
                   </ul>
                 </div>
               </motion.div>
@@ -392,22 +419,20 @@ function App() {
                 PROJECTS
               </motion.h2>
 
-              {expandedProject && (
-                <div
-                  className="fixed inset-0 z-10 cursor-default"
-                  onClick={() => {
-                    const id = expandedProject;
-                    setExpandedProject(null);
-                    setShowVideo(false);
-                    setTimeout(() => {
-                      document.getElementById(`project-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 500);
-                  }}
-                />
-              )}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5, scale: 1.01 }}
+                className="mb-12 font-body text-sm md:text-base text-[var(--color-frost-light)] opacity-80 border-l-4 border-[var(--color-frost-blue)] rounded-3xl px-6 py-4 w-full glass-panel transition-all duration-300 hover:shadow-[0_0_30px_rgba(56,189,248,0.15)] hover:opacity-100"
+                style={{ background: 'rgba(255,255,255,0.02)', backdropFilter: 'blur(5px)' }}
+              >
+                <span className="text-[var(--color-frost-blue)] font-bold">Just a heads up:</span> As these live demos are hosted on free-tier platforms, the servers may need a brief moment to wake up on your first visit. I really appreciate you giving them a minute to load!
+              </motion.div>
+
+              <div id="projects-grid" className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {projectsData.map((project, idx) => {
-                  const isExpanded = expandedProject === project.id;
+                  const isExpanded = expandedProjects.includes(project.id);
 
                   return (
                     <motion.div
@@ -423,7 +448,7 @@ function App() {
                         layout: { duration: 0.4, ease: "easeOut" }
                       }}
                       whileHover={!isExpanded ? { y: -10, scale: 1.02 } : {}}
-                      className={`glass-panel p-10 md:p-12 rounded-3xl border-t-2 ${project.borderClass} relative overflow-hidden group transition-shadow duration-500 cursor-pointer
+                      className={`project-card glass-panel p-10 md:p-12 rounded-3xl border-t-2 ${project.borderClass} relative overflow-hidden group transition-shadow duration-500 cursor-pointer
                         ${isExpanded ? 'col-span-1 md:col-span-2 lg:col-span-3 shadow-2xl z-20' : project.hoverShadowClass}`}
                     >
                       <div className={`absolute top-0 right-0 w-48 h-48 ${project.bgClass} opacity-10 blur-3xl group-hover:opacity-30 transition-opacity duration-700 pointer-events-none`}></div>
@@ -471,10 +496,10 @@ function App() {
                         )}
                         {isExpanded && (
                           <>
-                            <a href={project.github} onClick={(e) => e.stopPropagation()} className={`flex items-center gap-2 text-xs font-body tracking-widest uppercase text-white hover:text-[var(--color-frost-blue)] hover:border-[var(--color-frost-blue)] hover:shadow-[0_0_25px_rgba(56,189,248,0.4)] transition-all duration-300 border border-white/20 px-6 py-3 rounded-full backdrop-blur-sm bg-white/5`}>
+                            <a href={project.github} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className={`flex items-center gap-2 text-xs font-body tracking-widest uppercase text-white hover:text-[var(--color-frost-blue)] hover:border-[var(--color-frost-blue)] hover:shadow-[0_0_25px_rgba(56,189,248,0.4)] transition-all duration-300 border border-white/20 px-6 py-3 rounded-full backdrop-blur-sm bg-white/5`}>
                               <span>⌥</span> GitHub
                             </a>
-                            <a href={project.live} onClick={(e) => e.stopPropagation()} className={`flex items-center gap-2 text-xs font-body tracking-widest uppercase text-[#080f1a] bg-white hover:bg-[var(--color-frost-light)] transition-all duration-300 px-6 py-3 font-bold rounded-full shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(56,189,248,0.6)] hover:text-[var(--color-frost-blue)]`}>
+                            <a href={project.live} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className={`flex items-center gap-2 text-xs font-body tracking-widest uppercase text-[#080f1a] bg-white hover:bg-[var(--color-frost-light)] transition-all duration-300 px-6 py-3 font-bold rounded-full shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(56,189,248,0.6)] hover:text-[var(--color-frost-blue)]`}>
                               <span>↗</span> Live Demo
                             </a>
 
@@ -482,16 +507,20 @@ function App() {
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  setShowVideo(!showVideo);
-                                  if (!showVideo) {
+                                  setShownVideos(prev =>
+                                    prev.includes(project.id)
+                                      ? prev.filter(id => id !== project.id)
+                                      : [...prev, project.id]
+                                  );
+                                  if (!shownVideos.includes(project.id)) {
                                     setTimeout(() => {
                                       document.getElementById(`video-${project.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                    }, 450);
+                                    }, 400);
                                   }
                                 }}
                                 className={`flex items-center gap-2 text-xs font-body tracking-widest uppercase text-white hover:text-[var(--color-frost-blue)] hover:border-[var(--color-frost-blue)] hover:shadow-[0_0_25px_rgba(56,189,248,0.4)] transition-all duration-300 border border-white/20 px-6 py-3 rounded-full backdrop-blur-sm bg-white/5`}
                               >
-                                <span>{showVideo ? '▼' : '▶'}</span> {showVideo ? 'Hide Video' : 'Demo Video'}
+                                <span>{shownVideos.includes(project.id) ? '▼' : '▶'}</span> {shownVideos.includes(project.id) ? 'Hide Video' : 'Demo Video'}
                               </button>
                             )}
 
@@ -509,7 +538,7 @@ function App() {
                       </motion.div>
 
                       <AnimatePresence>
-                        {isExpanded && showVideo && project.video && (
+                        {isExpanded && shownVideos.includes(project.id) && project.video && (
                           <motion.div
                             id={`video-${project.id}`}
                             initial={{ opacity: 0, height: 0, marginTop: 0 }}
