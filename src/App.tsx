@@ -7,8 +7,14 @@ const projectsData = [
   {
     id: 'devpilot',
     title: 'Devpilot',
-    tags: ['Generative AI', 'AI Assistant', 'Developer Tools'],
-    shortDesc: 'Devpilot is a Generative AI-powered coding assistant that accelerates development by helping developers write, debug, and optimize code with high accuracy.',
+    tags: ['🧠 Generative AI', '⚡ Next.js', '🚀 FastAPI'],
+    shortDesc: 'An AI-powered software engineering assistant that helps developers generate documentation, analyze requirements, and design scalable software architectures through specialized GenAI modules.',
+    features: [
+      'AI-powered documentation generation from source code repositories.',
+      'Intelligent requirements analysis with PDF and Markdown document support.',
+      'Interactive software architecture planning with live Mermaid diagrams.',
+      'Persistent multi-session conversations with context-aware AI memory.'
+    ],
     borderClass: 'border-t-[var(--color-frost-light)]',
     bgClass: 'bg-[var(--color-frost-light)]',
     hoverShadowClass: 'hover:shadow-[0_0_50px_rgba(224,242,254,0.15)]',
@@ -22,8 +28,14 @@ const projectsData = [
   {
     id: 'kinosoca',
     title: 'Kinosoca',
-    tags: ['Web', 'AI', 'React'],
-    shortDesc: 'An intelligent cinema and movie discovery platform. Explore AI-curated movies, reviews, and personalized cinematic recommendations.',
+    tags: ['🎬 React', '🤖 AI Search', '🗄️ PostgreSQL'],
+    shortDesc: 'A modern movie discovery platform that combines AI-powered semantic search, personalized recommendations, and rich movie insights to help users find the perfect film.',
+    features: [
+      'Natural language movie search with AI-powered semantic recommendations.',
+      'Mood-based discovery, advanced filters, and personalized watchlists.',
+      'TMDB integration for trending, popular, top-rated, and detailed movie information.',
+      'Secure JWT authentication with user profiles and protected watchlist management.'
+    ],
     borderClass: 'border-t-[var(--color-frost-blue)]',
     bgClass: 'bg-[var(--color-frost-blue)]',
     hoverShadowClass: 'hover:shadow-[0_0_40px_rgba(56,189,248,0.2)]',
@@ -37,8 +49,14 @@ const projectsData = [
   {
     id: 'hireamigo',
     title: 'Hireamigo',
-    tags: ['AI', 'NLP', 'React'],
-    shortDesc: 'An AI-powered resume screening and candidate ranking system. Automatically parses resumes, matches them against job descriptions, and categorizes candidates using advanced NLP techniques.',
+    tags: ['📄 FastAPI', '🐍 Python', '📊 Resume Screening'],
+    shortDesc: 'A recruiter-first resume screening platform that automates candidate ranking using transparent rule-based evaluation, helping HR teams shortlist applicants faster and more efficiently.',
+    features: [
+      'Batch PDF resume processing with automated candidate ranking.',
+      'Rule-based scoring using hiring tags and keyword relevance matching.',
+      'Anti-bias screening with anonymized candidate evaluation and manual overrides.',
+      'Interactive recruiter dashboard featuring resume preview, drag-and-drop buckets, notes, and CSV export.'
+    ],
     borderClass: 'border-t-[var(--color-frost-medium)]',
     bgClass: 'bg-[var(--color-frost-medium)]',
     hoverShadowClass: 'hover:shadow-[0_0_40px_rgba(125,211,252,0.2)]',
@@ -434,10 +452,9 @@ function App() {
                             className="relative z-10"
                           >
                             <div className="mb-8 font-body text-sm md:text-base text-gray-300 space-y-4 border-l-2 border-white/20 pl-6 py-2">
-                              <p><strong className="text-white">.1</strong> [Replace with point 1]</p>
-                              <p><strong className="text-white">.2</strong> [Replace with point 2]</p>
-                              <p><strong className="text-white">.3</strong> [Replace with point 3]</p>
-                              <p><strong className="text-white">.4</strong> [Replace with point 4]</p>
+                              {project.features?.map((feature, fIdx) => (
+                                <p key={fIdx}><strong className="text-white">.{fIdx + 1}</strong> {feature}</p>
+                              ))}
                             </div>
                           </motion.div>
                         )}
