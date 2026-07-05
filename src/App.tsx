@@ -15,7 +15,7 @@ const projectsData = [
     btnHoverTextClass: 'hover:text-[var(--color-frost-light)]',
     btnHoverBorderClass: 'hover:border-[var(--color-frost-light)]',
     btnSolidHoverBgClass: 'hover:bg-[var(--color-frost-light)]',
-    video: '',
+    video: '/devpilotdemo.webm',
     github: '#',
     live: '#'
   },
