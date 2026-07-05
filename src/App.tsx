@@ -5,6 +5,21 @@ import { useState } from 'react';
 
 const projectsData = [
   {
+    id: 'devpilot',
+    title: 'Devpilot',
+    tags: ['AI Assistant', 'Developer Tools'],
+    shortDesc: 'Devpilot is an AI-powered coding assistant that helps developers write, debug, and optimize code more efficiently.',
+    borderClass: 'border-t-[var(--color-frost-light)]',
+    bgClass: 'bg-[var(--color-frost-light)]',
+    hoverShadowClass: 'hover:shadow-[0_0_50px_rgba(224,242,254,0.15)]',
+    btnHoverTextClass: 'hover:text-[var(--color-frost-light)]',
+    btnHoverBorderClass: 'hover:border-[var(--color-frost-light)]',
+    btnSolidHoverBgClass: 'hover:bg-[var(--color-frost-light)]',
+    video: '',
+    github: '#',
+    live: '#'
+  },
+  {
     id: 'kinosoca',
     title: 'Kinosoca',
     tags: ['Web', 'AI', 'React'],
@@ -20,8 +35,8 @@ const projectsData = [
     live: '#'
   },
   {
-    id: 'smartlyst',
-    title: 'Smartlyst',
+    id: 'hireamigo',
+    title: 'Hireamigo',
     tags: ['AI', 'NLP', 'React'],
     shortDesc: 'An AI-powered resume screening and candidate ranking system. Automatically parses resumes, matches them against job descriptions, and categorizes candidates using advanced NLP techniques.',
     borderClass: 'border-t-[var(--color-frost-medium)]',
@@ -31,21 +46,6 @@ const projectsData = [
     btnHoverBorderClass: 'hover:border-[var(--color-frost-medium)]',
     btnSolidHoverBgClass: 'hover:bg-[var(--color-frost-medium)]',
     video: '/hireamigodemo.webm',
-    github: '#',
-    live: '#'
-  },
-  {
-    id: 'dummy',
-    title: 'Dummy Project 03',
-    tags: ['Deep Learning', 'Vision'],
-    shortDesc: 'Describe your next big project here. Explain the problem, the tech stack you utilized, and the final impact or accuracy metric achieved.',
-    borderClass: 'border-t-[var(--color-frost-light)]',
-    bgClass: 'bg-[var(--color-frost-light)]',
-    hoverShadowClass: 'hover:shadow-[0_0_50px_rgba(224,242,254,0.15)]',
-    btnHoverTextClass: 'hover:text-[var(--color-frost-light)]',
-    btnHoverBorderClass: 'hover:border-[var(--color-frost-light)]',
-    btnSolidHoverBgClass: 'hover:bg-[var(--color-frost-light)]',
-    video: '',
     github: '#',
     live: '#'
   }
