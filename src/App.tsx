@@ -7,8 +7,8 @@ const projectsData = [
   {
     id: 'devpilot',
     title: 'Devpilot',
-    tags: ['AI Assistant', 'Developer Tools'],
-    shortDesc: 'Devpilot is an AI-powered coding assistant that helps developers write, debug, and optimize code more efficiently.',
+    tags: ['Generative AI', 'AI Assistant', 'Developer Tools'],
+    shortDesc: 'Devpilot is a Generative AI-powered coding assistant that accelerates development by helping developers write, debug, and optimize code with high accuracy.',
     borderClass: 'border-t-[var(--color-frost-light)]',
     bgClass: 'bg-[var(--color-frost-light)]',
     hoverShadowClass: 'hover:shadow-[0_0_50px_rgba(224,242,254,0.15)]',
