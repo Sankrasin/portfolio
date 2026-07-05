@@ -375,8 +375,8 @@ function App() {
               </motion.h2>
 
               {expandedProject && (
-                <div 
-                  className="fixed inset-0 z-10 cursor-default" 
+                <div
+                  className="fixed inset-0 z-10 cursor-default"
                   onClick={() => {
                     const id = expandedProject;
                     setExpandedProject(null);
@@ -390,7 +390,7 @@ function App() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {projectsData.map((project, idx) => {
                   const isExpanded = expandedProject === project.id;
-                  
+
                   return (
                     <motion.div
                       key={project.id}
@@ -400,9 +400,9 @@ function App() {
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ 
-                        delay: isExpanded ? 0 : idx * 0.2, 
-                        layout: { duration: 0.4, ease: "easeOut" } 
+                      transition={{
+                        delay: isExpanded ? 0 : idx * 0.2,
+                        layout: { duration: 0.4, ease: "easeOut" }
                       }}
                       whileHover={!isExpanded ? { y: -10, scale: 1.02 } : {}}
                       className={`glass-panel p-10 md:p-12 rounded-3xl border-t-2 ${project.borderClass} relative overflow-hidden group transition-shadow duration-500 cursor-pointer
@@ -445,8 +445,8 @@ function App() {
 
                       <motion.div layout className="flex flex-wrap gap-4 pt-6 border-t border-white/10 relative z-10">
                         {!isExpanded && (
-                          <button 
-                            onClick={(e) => { e.stopPropagation(); toggleProject(project.id); }} 
+                          <button
+                            onClick={(e) => { e.stopPropagation(); toggleProject(project.id); }}
                             className={`flex items-center gap-2 text-xs font-body tracking-widest uppercase text-white hover:text-[var(--color-frost-blue)] hover:border-[var(--color-frost-blue)] hover:shadow-[0_0_25px_rgba(56,189,248,0.4)] transition-all duration-300 border border-white/20 px-6 py-3 rounded-full backdrop-blur-sm bg-white/5`}
                           >
                             Know More
@@ -460,27 +460,27 @@ function App() {
                             <a href={project.live} onClick={(e) => e.stopPropagation()} className={`flex items-center gap-2 text-xs font-body tracking-widest uppercase text-[#080f1a] bg-white hover:bg-[var(--color-frost-light)] transition-all duration-300 px-6 py-3 font-bold rounded-full shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(56,189,248,0.6)] hover:text-[var(--color-frost-blue)]`}>
                               <span>↗</span> Live Demo
                             </a>
-                            
+
                             {project.video && (
-                              <button 
-                                onClick={(e) => { 
-                                  e.stopPropagation(); 
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
                                   setShowVideo(!showVideo);
                                   if (!showVideo) {
                                     setTimeout(() => {
                                       document.getElementById(`video-${project.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                     }, 450);
                                   }
-                                }} 
+                                }}
                                 className={`flex items-center gap-2 text-xs font-body tracking-widest uppercase text-white hover:text-[var(--color-frost-blue)] hover:border-[var(--color-frost-blue)] hover:shadow-[0_0_25px_rgba(56,189,248,0.4)] transition-all duration-300 border border-white/20 px-6 py-3 rounded-full backdrop-blur-sm bg-white/5`}
                               >
                                 <span>{showVideo ? '▼' : '▶'}</span> {showVideo ? 'Hide Video' : 'Demo Video'}
                               </button>
                             )}
 
-                            <button onClick={(e) => { 
-                              e.stopPropagation(); 
-                              toggleProject(project.id); 
+                            <button onClick={(e) => {
+                              e.stopPropagation();
+                              toggleProject(project.id);
                               setTimeout(() => {
                                 document.getElementById(`project-${project.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                               }, 500);
@@ -501,11 +501,11 @@ function App() {
                             transition={{ duration: 0.4, ease: "easeInOut" }}
                             className="relative z-10 w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl"
                           >
-                            <video 
-                              src={project.video} 
-                              autoPlay 
-                              loop 
-                              controls 
+                            <video
+                              src={project.video}
+                              autoPlay
+                              loop
+                              controls
                               className="w-full h-auto max-h-[60vh] object-contain bg-black/50"
                             />
                           </motion.div>
@@ -560,7 +560,7 @@ function App() {
           </main>
 
           <footer className="flex flex-col items-center justify-center pt-16 pb-8 font-body text-[var(--color-frost-light)] tracking-widest uppercase border-t border-white/10 bg-[#080f1a]/80 backdrop-blur-md relative z-10">
-            <button 
+            <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="flex flex-col items-center gap-4 group mb-12"
             >
