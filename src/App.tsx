@@ -24,7 +24,7 @@ const projectsData = [
     btnSolidHoverBgClass: 'hover:bg-[var(--color-frost-light)]',
     video: '/devpilotdemo.webm',
     github: 'https://github.com/Sankrasin/devpilot',
-    live: 'https://devpilot-coral.vercel.app/'
+    live: 'https://yourdevpilot.vercel.app/'
   },
   {
     id: 'kinosoca',
