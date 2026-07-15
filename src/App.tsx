@@ -226,7 +226,7 @@ function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   whileHover={{ y: -5, scale: 1.02 }}
-                  className="glass-panel p-5 md:p-6 rounded-3xl border border-white/20 backdrop-blur-md flex flex-col items-center gap-5 shadow-[0_0_30px_rgba(56,189,248,0.1)] relative overflow-hidden group"
+                  className="glass-panel p-5 md:p-6 rounded-3xl border border-white/20 flex flex-col items-center gap-5 shadow-[0_0_30px_rgba(56,189,248,0.1)] relative overflow-hidden group"
                 >
                   <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-frost-light)] opacity-5 blur-2xl pointer-events-none group-hover:opacity-10 transition-opacity"></div>
                   <h3 className="text-white font-heading tracking-widest uppercase font-bold text-base md:text-lg relative z-10 drop-shadow-md">
@@ -257,7 +257,7 @@ function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   whileHover={{ y: -5, scale: 1.02 }}
-                  className="glass-panel p-5 md:p-6 rounded-3xl border border-white/20 backdrop-blur-md flex flex-col items-center gap-5 shadow-[0_0_30px_rgba(56,189,248,0.1)] relative overflow-hidden group"
+                  className="glass-panel p-5 md:p-6 rounded-3xl border border-white/20 flex flex-col items-center gap-5 shadow-[0_0_30px_rgba(56,189,248,0.1)] relative overflow-hidden group"
                 >
                   <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-frost-light)] opacity-5 blur-2xl pointer-events-none group-hover:opacity-10 transition-opacity"></div>
                   <h3 className="text-white font-heading tracking-widest uppercase font-bold text-base md:text-lg relative z-10 drop-shadow-md flex items-center gap-3">
