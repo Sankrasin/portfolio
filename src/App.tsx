@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import Snow from './Snow';
 import AudioPlayer from './AudioPlayer';
 import { useState, useEffect } from 'react';
@@ -73,6 +74,8 @@ function App() {
   const [entered, setEntered] = useState(false);
   const [expandedProjects, setExpandedProjects] = useState<string[]>([]);
   const [shownVideos, setShownVideos] = useState<string[]>([]);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
+  const [isResumeMenuOpen, setIsResumeMenuOpen] = useState(false);
 
   const toggleProject = (id: string) => {
     if (expandedProjects.includes(id)) {
@@ -98,6 +101,9 @@ function App() {
           }, 500);
         }
       }
+      if (!target.closest('.resume-dropdown')) {
+        setIsResumeMenuOpen(false);
+      }
     };
 
     document.addEventListener('click', handleDocumentClick);
@@ -105,6 +111,20 @@ function App() {
       document.removeEventListener('click', handleDocumentClick);
     };
   }, [expandedProjects]);
+
+  // Lock body scroll when resume modal is open
+  useEffect(() => {
+    if (isResumeModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isResumeModalOpen]);
+
   return (
     <>
       <div className="fixed inset-0 z-[-1] pointer-events-none">
@@ -206,17 +226,64 @@ function App() {
                 className="flex flex-wrap items-center gap-6"
               >
 
-                <a href="/Sankalp_Raj_Singh_Resume.pdf" download="Sankalp_Raj_Singh_Resume.pdf" className="inline-block px-8 py-4 bg-transparent text-white font-body tracking-widest uppercase font-bold hover:bg-white/10 hover:border-[var(--color-frost-blue)] hover:text-[var(--color-frost-blue)] hover:shadow-[0_0_25px_rgba(56,189,248,0.4)] transition-all duration-300 rounded-3xl border border-white/20 backdrop-blur-md">
-                  RESUMÉ ⬇
-                </a>
-                <div className="flex gap-6 ml-4">
-                  <a href="https://github.com/Sankrasin" target="_blank" rel="noreferrer" className="text-white/60 hover:text-[var(--color-frost-blue)] hover:drop-shadow-[0_0_10px_rgba(56,189,248,0.8)] transition-all duration-300" aria-label="GitHub">
-                    <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="glass-panel p-5 md:p-6 rounded-3xl border border-white/20 backdrop-blur-md flex flex-col items-center gap-5 shadow-[0_0_30px_rgba(56,189,248,0.1)] relative overflow-hidden group"
+                >
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-frost-light)] opacity-5 blur-2xl pointer-events-none group-hover:opacity-10 transition-opacity"></div>
+                  <h3 className="text-white font-heading tracking-widest uppercase font-bold text-base md:text-lg relative z-10 drop-shadow-md">
+                    CHECK OUT MY RESUMÉ
+                  </h3>
+                  <div className="flex gap-4 relative z-10">
+                    <motion.button 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setIsResumeModalOpen(true)}
+                      className="px-7 py-2.5 bg-white/5 hover:bg-white/10 text-white font-body tracking-widest uppercase font-bold text-sm hover:border-[var(--color-frost-blue)] hover:text-[var(--color-frost-blue)] hover:shadow-[0_0_20px_rgba(56,189,248,0.3)] transition-all duration-300 rounded-full border border-white/10"
+                    >
+                      VIEW
+                    </motion.button>
+                    <motion.a 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      href="/Sankalp_Raj_Singh_Resume.pdf" 
+                      download="Sankalp_Raj_Singh_Resume.pdf"
+                      className="px-7 py-2.5 bg-white/5 hover:bg-white/10 text-white font-body tracking-widest uppercase font-bold text-sm hover:border-[var(--color-frost-blue)] hover:text-[var(--color-frost-blue)] hover:shadow-[0_0_20px_rgba(56,189,248,0.3)] transition-all duration-300 rounded-full border border-white/10"
+                    >
+                      DOWNLOAD
+                    </motion.a>
+                  </div>
+                </motion.div>
+                <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="glass-panel p-5 md:p-6 rounded-3xl border border-white/20 backdrop-blur-md flex flex-col items-center gap-5 shadow-[0_0_30px_rgba(56,189,248,0.1)] relative overflow-hidden group"
+                >
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-frost-light)] opacity-5 blur-2xl pointer-events-none group-hover:opacity-10 transition-opacity"></div>
+                  <h3 className="text-white font-heading tracking-widest uppercase font-bold text-base md:text-lg relative z-10 drop-shadow-md flex items-center gap-3">
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
                     </svg>
-                  </a>
-
-                </div>
+                    GITHUB PROFILE
+                  </h3>
+                  <div className="flex gap-4 relative z-10">
+                    <motion.a 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      href="https://github.com/Sankrasin" 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="px-7 py-2.5 bg-white/5 hover:bg-white/10 text-white font-body tracking-widest uppercase font-bold text-sm hover:border-[var(--color-frost-blue)] hover:text-[var(--color-frost-blue)] hover:shadow-[0_0_20px_rgba(56,189,248,0.3)] transition-all duration-300 rounded-full border border-white/10"
+                    >
+                      VISIT
+                    </motion.a>
+                  </div>
+                </motion.div>
               </motion.div>
             </section>
 
@@ -395,8 +462,8 @@ function App() {
                 whileHover={{ y: -5, scale: 1.02 }}
                 className="glass-panel p-12 text-center rounded-3xl transition-shadow hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
               >
-                <div className="text-2xl mb-4 text-[var(--color-frost-medium)]">✦ Your experience will appear here ✦</div>
-                <p className="font-body text-sm text-[var(--color-frost-light)] opacity-70">Add your internships, hackathons, or certifications here.</p>
+                <div className="text-2xl mb-4 text-[var(--color-frost-medium)]">✦ Updates coming soon! ✦</div>
+                <p className="font-body text-sm text-[var(--color-frost-light)] opacity-70">Working on some new stuff right now. I'll be updating this section soon!</p>
               </motion.div>
             </section>
 
@@ -621,6 +688,73 @@ function App() {
           </footer>
         </motion.div>
       )}
+
+      <AnimatePresence>
+        {isResumeModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-2 backdrop-blur-xl bg-[#080f1a]/80"
+            onClick={() => setIsResumeModalOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="glass-panel w-[calc(98vh*0.75)] max-w-[98vw] h-[98vh] rounded-3xl flex flex-col overflow-hidden border border-[var(--color-frost-blue)] shadow-[0_0_50px_rgba(56,189,248,0.3)] relative"
+            >
+              {/* Header */}
+              <div className="flex justify-between items-center p-6 border-b border-white/10 bg-[#080f1a]/40">
+                <h3 className="text-xl font-bold font-heading tracking-widest text-white">
+                  MY RESUMÉ
+                </h3>
+                <div className="flex gap-4">
+                  <a 
+                    href="/Sankalp_Raj_Singh_Resume.pdf" 
+                    download="Sankalp_Raj_Singh_Resume.pdf"
+                    className="px-6 py-2 flex items-center justify-center bg-white/10 hover:bg-[var(--color-frost-blue)] text-white hover:text-[#080f1a] transition-all duration-300 rounded-full font-body tracking-widest uppercase font-bold text-xs border border-[var(--color-frost-blue)] hover:border-transparent"
+                  >
+                    Download
+                  </a>
+                  <button 
+                    onClick={() => setIsResumeModalOpen(false)}
+                    className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors border border-white/20"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+              
+              {/* Resume Image Viewer with strict zoom limits */}
+              <div className="flex-1 w-full bg-[#080f1a]/40 p-6 flex justify-center items-center overflow-hidden">
+                <div 
+                  className="h-full rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.5)] border border-white/10 flex-shrink-0 cursor-grab active:cursor-grabbing"
+                  style={{ aspectRatio: '8.5/11' }}
+                >
+                  <TransformWrapper 
+                    initialScale={1}
+                    minScale={1} 
+                    maxScale={4} 
+                    centerOnInit 
+                    wheel={{ step: 0.1 }}
+                  >
+                    <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }} contentStyle={{ width: "100%", height: "100%" }}>
+                      <img 
+                        src="/Sankalp_Raj_Singh_Resume.png" 
+                        alt="Sankalp Raj Singh Resume"
+                        className="w-full h-full object-contain bg-white"
+                        draggable={false}
+                      />
+                    </TransformComponent>
+                  </TransformWrapper>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }

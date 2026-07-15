@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 export default function AudioPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const fadeTime = 4;
-  const maxVolume = 0.02; // Down to 2% volume
+  const maxVolume = 0.10; // Down to 10% volume
   const isPlayingRef = useRef(false);
 
   useEffect(() => {
