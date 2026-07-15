@@ -24,7 +24,7 @@ const projectsData = [
     btnSolidHoverBgClass: 'hover:bg-[var(--color-frost-light)]',
     video: '/devpilotdemo.webm',
     github: 'https://github.com/Sankrasin/devpilot',
-    live: 'https://yourdevpilot.vercel.app/'
+    live: 'https://devpilot-by-srs.vercel.app/'
   },
   {
     id: 'kinosoca',
@@ -45,7 +45,7 @@ const projectsData = [
     btnSolidHoverBgClass: 'hover:bg-[var(--color-frost-blue)]',
     video: '/kinosocademo.webm',
     github: 'https://github.com/Sankrasin/kinosoca',
-    live: 'https://kinosoca.vercel.app/'
+    live: 'https://kinosoca-by-srs.vercel.app/'
   },
   {
     id: 'hireamigo',
@@ -66,7 +66,7 @@ const projectsData = [
     btnSolidHoverBgClass: 'hover:bg-[var(--color-frost-medium)]',
     video: '/hireamigodemo.webm',
     github: 'https://github.com/Sankrasin/hireamigo',
-    live: 'https://hireamigo.vercel.app/'
+    live: 'https://hireamigo-by-srs.vercel.app/'
   }
 ];
 
