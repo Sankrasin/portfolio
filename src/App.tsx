@@ -75,8 +75,6 @@ function App() {
   const [expandedProjects, setExpandedProjects] = useState<string[]>([]);
   const [shownVideos, setShownVideos] = useState<string[]>([]);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
-  const [isResumeMenuOpen, setIsResumeMenuOpen] = useState(false);
-
   const toggleProject = (id: string) => {
     if (expandedProjects.includes(id)) {
       setExpandedProjects(prev => prev.filter(p => p !== id));
@@ -100,9 +98,6 @@ function App() {
             document.getElementById('projects-grid')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }, 500);
         }
-      }
-      if (!target.closest('.resume-dropdown')) {
-        setIsResumeMenuOpen(false);
       }
     };
 
